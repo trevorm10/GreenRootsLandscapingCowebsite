@@ -6,3 +6,5 @@
 -The client doesnt want to a CMS or word press feature. They want us to do all uploads and changes to the website on their behalf, hence i didnot update the Proposal with that feature
 
 -Content is added shown in the wireframes. The image folder is created and images are added in it 
+
+-All other web pages where created and their respective HTML code are in the folders.
