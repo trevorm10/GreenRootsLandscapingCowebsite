@@ -2,56 +2,388 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GreenRoots Landscaping Co. - About</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        /* Additional styles specific to the About page */
+        .history-timeline {
+            position: relative;
+            padding: 2rem 0;
+            margin: 3rem 0;
+        }
+        
+        .history-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background-color: var(--forest-green);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            width: 45%;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 3rem;
+            text-align: right;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 55%;
+            padding-left: 3rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 1rem;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--forest-green);
+        }
+        
+        .timeline-item:nth-child(odd)::before {
+            right: -10px;
+        }
+        
+        .timeline-item:nth-child(even)::before {
+            left: -10px;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .value-card {
+            background-color: var(--light-gray);
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .value-icon {
+            font-size: 2.5rem;
+            color: var(--forest-green);
+            margin-bottom: 1rem;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .team-member {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+        
+        .member-image {
+            height: 300px;
+            background-color: var(--sky-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 5rem;
+        }
+        
+        .member-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .member-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .member-social a {
+            color: var(--forest-green);
+            font-size: 1.2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .history-timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 3rem;
+                padding-right: 0;
+                text-align: left;
+            }
+            
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item:nth-child(odd)::before,
+            .timeline-item:nth-child(even)::before {
+                left: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>About GreenRoots Landscaping Co.</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="aboutus.html">About</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
+        <div class="container header-container">
+            <div class="logo">GreenRoots Landscaping Co.</div>
+            <button class="mobile-menu-btn" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="aboutus.html" class="active">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <main>
-        <section id="overview">
-            <h2>History</h2>
-            <p>Founded in 2015 in Cape Town, GreenRoots began as a small family-run landscaping business. Over the years, it has grown into a reputable company offering eco-friendly garden design and maintenance services across the Western Cape.</p>
-
-            <h2>Mission</h2>
-            <p>To create sustainable, beautiful outdoor spaces that enrich lives and respect the environment.</p>
-
-            <h2>Vision</h2>
-            <p>To be South Africa’s leading eco-conscious landscaping brand.</p>
+        <section id="page-hero">
+            <div class="container">
+                <h1>About GreenRoots Landscaping Co.</h1>
+                <p>Learn about our journey, values, and the team behind our eco-friendly landscaping services</p>
+            </div>
         </section>
 
-        <section id="values-approach">
-            <h2>Values and Approach</h2>
-            <p>Sustainability focus</p>
-            <p>Community commitment</p>
-            <p>Eco-friendly practices</p>
+        <section id="overview">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Story</h2>
+                </div>
+                
+                <div class="history-timeline">
+                    <div class="timeline-item">
+                        <h3>2015</h3>
+                        <p>GreenRoots was founded in Cape Town as a small family-run landscaping business with a focus on sustainable practices.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>2017</h3>
+                        <p>We expanded our services to include eco-friendly garden design and began working with commercial clients.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>2019</h3>
+                        <p>GreenRoots won the Western Cape Sustainable Business Award and expanded our team to include specialized horticulturists.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>2022</h3>
+                        <p>We launched our community outreach program, helping schools and public spaces create sustainable gardens.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Present</h3>
+                        <p>Today, we serve clients across the Western Cape with a team of 15 dedicated landscaping professionals.</p>
+                    </div>
+                </div>
+                
+                <div class="mission-vision">
+                    <div class="values-grid">
+                        <div class="value-card">
+                            <div class="value-icon">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <h3>Our Mission</h3>
+                            <p>To create sustainable, beautiful outdoor spaces that enrich lives and respect the environment.</p>
+                        </div>
+                        <div class="value-card">
+                            <div class="value-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h3>Our Vision</h3>
+                            <p>To be South Africa's leading eco-conscious landscaping brand, inspiring sustainable practices industry-wide.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="values-approach" class="light-bg">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Values & Approach</h2>
+                </div>
+                
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>Sustainability Focus</h3>
+                        <p>We prioritize environmentally friendly materials, water-wise designs, and native plant species in all our projects.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Community Commitment</h3>
+                        <p>We believe in giving back through community projects, educational programs, and supporting local suppliers.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-recycle"></i>
+                        </div>
+                        <h3>Eco-Friendly Practices</h3>
+                        <p>From composting green waste to using electric equipment, we minimize our environmental impact at every step.</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="team">
-            <h2>Team</h2>
-            <article>
-                <h3>Team Member 1</h3>
-                <p>Short bio</p>
-            </article>
-            <article>
-                <h3>Team Member 2</h3>
-                <p>Short bio</p>
-            </article>
+            <div class="container">
+                <div class="section-title">
+                    <h2>Meet Our Team</h2>
+                </div>
+                
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="member-info">
+                            <h3>Sarah Johnson</h3>
+                            <p>Founder & Lead Designer</p>
+                            <p>With over 15 years of experience in sustainable landscape design, Sarah founded GreenRoots to combine her passion for beauty with environmental stewardship.</p>
+                            <div class="member-social">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="member-info">
+                            <h3>Michael Brown</h3>
+                            <p>Head Horticulturist</p>
+                            <p>Michael specializes in indigenous South African plants and water-wise gardening techniques. He ensures every project thrives in our local climate.</p>
+                            <div class="member-social">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="member-info">
+                            <h3>Lindiwe Mabaso</h3>
+                            <p>Sustainability Coordinator</p>
+                            <p>Lindiwe implements our eco-friendly practices across all operations and leads our community outreach programs to promote environmental education.</p>
+                            <div class="member-social">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-facebook"></i></a>
+                                <a href="#"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>Contact info and social media links</p>
+        <div class="container">
+            <div class="footer-content">
+                <p>Get in touch to discuss your sustainable landscaping project</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+                <p>© 2023 GreenRoots Landscaping Co. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Animation for timeline items
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            function checkScroll() {
+                timelineItems.forEach(item => {
+                    const position = item.getBoundingClientRect();
+                    
+                    
+                    if(position.top < window.innerHeight - 100 && position.bottom >= 0) {
+                        item.style.opacity = 1;
+                        item.style.transform = 'translateX(0)';
+                    }
+                });
+            }
+            
+            // Set initial state for animation
+            timelineItems.forEach(item => {
+                item.style.opacity = 0;
+                if(item.classList.contains('timeline-item:nth-child(odd)')) {
+                    item.style.transform = 'translateX(-50px)';
+                } else {
+                    item.style.transform = 'translateX(50px)';
+                }
+                item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            });
+            
+            
+            window.addEventListener('load', checkScroll);
+            window.addEventListener('scroll', checkScroll);
+            checkScroll(); // Initial check
+        });
+    </script>
 </body>
 </html>
