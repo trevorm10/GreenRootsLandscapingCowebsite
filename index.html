@@ -2,64 +2,126 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GreenRoots Landscaping Co. - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
     <header>
-        <h1>GreenRoots Landscaping Co.</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="aboutus.html">About</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
+        <div class="container header-container">
+            <div class="logo">GreenRoots Landscaping Co.</div>
+            <button class="mobile-menu-btn" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="aboutus.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <main>
         <section id="hero">
-            <h2>Creating sustainable, beautiful outdoor spaces</h2>
-            <button>View Our Services</button>
+            <div class="container">
+                <h2>Creating sustainable, beautiful outdoor spaces</h2>
+                <a href="services.html" class="btn">View Our Services</a>
+            </div>
         </section>
 
         <section id="about-preview">
-            <p>Short intro about GreenRoots and mission.</p>
-            <button>Learn More About Us</button>
+            <div class="container">
+                <h2 class="section-title">Our Mission</h2>
+                <p>Founded in 2015 in Cape Town, GreenRoots began as a small family-run landscaping business. Today, we create sustainable outdoor spaces that enrich lives and respect the environment.</p>
+                <a href="aboutus.html" class="btn btn-outline">Learn More About Us</a>
+            </div>
         </section>
 
         <section id="services-preview">
-            <article>
-                <h3>Garden Design</h3>
-            </article>
-            <article>
-                <h3>Maintenance</h3>
-            </article>
-            <article>
-                <h3>Eco Solutions</h3>
-            </article>
+            <div class="container">
+                <h2 class="section-title">Our Services</h2>
+                <div class="services-grid">
+                    <article class="service-card">
+                        <div class="service-img">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>Garden Design</h3>
+                            <p>Custom landscape designs that blend beauty with sustainability, tailored to your space and preferences.</p>
+                        </div>
+                    </article>
+                    <article class="service-card">
+                        <div class="service-img">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>Maintenance</h3>
+                            <p>Eco-friendly garden care services to keep your outdoor space thriving year-round.</p>
+                        </div>
+                    </article>
+                    <article class="service-card">
+                        <div class="service-img">
+                            <i class="fas fa-recycle"></i>
+                        </div>
+                        <div class="service-content">
+                            <h3>Eco Solutions</h3>
+                            <p>Sustainable landscaping solutions including rainwater harvesting and native plant selection.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
         </section>
 
         <section id="gallery-preview">
-            <img alt="Gallery image 1" />
-            <img alt="Gallery image 2" />
-            <img alt="Gallery image 3" />
-            <img alt="Gallery image 4" />
+            <div class="container">
+                <h2 class="section-title">Our Work</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item"></div>
+                    <div class="gallery-item"></div>
+                    <div class="gallery-item"></div>
+                    <div class="gallery-item"></div>
+                </div>
+            </div>
         </section>
 
         <section id="testimonials">
-            <blockquote>
-                <p>Client testimonial 1</p>
-            </blockquote>
-            <blockquote>
-                <p>Client testimonial 2</p>
-            </blockquote>
+            <div class="container">
+                <h2 class="section-title">What Our Clients Say</h2>
+                <div class="testimonials-container">
+                    <blockquote class="testimonial">
+                        <p>"GreenRoots transformed our backyard into an eco-friendly paradise. Their team was professional and truly cared about creating a sustainable space."</p>
+                        <cite>- Sarah Johnson, Cape Town</cite>
+                    </blockquote>
+                    <blockquote class="testimonial">
+                        <p>"The garden design service was exceptional. They listened to our needs and created a beautiful, low-maintenance landscape that's also environmentally friendly."</p>
+                        <cite>- Michael Brown, Stellenbosch</cite>
+                    </blockquote>
+                </div>
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>Contact info and social media links</p>
+        <div class="container">
+            <div class="footer-content">
+                <p>Contact us today to discuss your landscaping needs</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+                <p>© 2023 GreenRoots Landscaping Co. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
