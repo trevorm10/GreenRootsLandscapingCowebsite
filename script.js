@@ -77,3 +77,54 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// Additional functionality for About page
+function initAboutPage() {
+    // Add active class to current page in navigation
+    const currentPage = window.location.pathname.split('/').pop();
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    
+    navLinks.forEach(link => {
+        if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
+        }
+    });
+    
+    // Animation for timeline items
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    
+    function checkScroll() {
+        timelineItems.forEach(item => {
+            const position = item.getBoundingClientRect();
+            
+            
+            if(position.top < window.innerHeight - 100 && position.bottom >= 0) {
+                item.style.opacity = 1;
+                item.style.transform = 'translateX(0)';
+            }
+        });
+    }
+    
+    
+    if (currentPage === 'aboutus.html' || window.location.pathname.endsWith('aboutus.html')) {
+        timelineItems.forEach(item => {
+            item.style.opacity = 0;
+            if(window.getComputedStyle(item).getPropertyValue('text-align') === 'right') {
+                item.style.transform = 'translateX(-50px)';
+            } else {
+                item.style.transform = 'translateX(50px)';
+            }
+            item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+        
+        // Check scroll on load and scroll
+        window.addEventListener('load', checkScroll);
+        window.addEventListener('scroll', checkScroll);
+        checkScroll(); // Initial check
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    initAboutPage();
+});
