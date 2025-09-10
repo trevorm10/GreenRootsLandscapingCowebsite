@@ -2,35 +2,466 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GreenRoots Landscaping Co. - Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <style>
+        /* Additional styles specific to the Gallery page */
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0 3rem;
+        }
+        
+        .filter-btn {
+            background-color: var(--light-gray);
+            border: 2px solid var(--forest-green);
+            color: var(--forest-green);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--forest-green);
+            color: var(--white);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .gallery-item {
+            position: relative;
+            height: 250px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-info {
+            color: var(--white);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-info {
+            transform: translateY(0);
+        }
+        
+        .gallery-info h3 {
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1100;
+            overflow: hidden;
+        }
+        
+        .modal-content {
+            position: relative;
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 1200px;
+            max-height: 80vh;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .modal-image {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: var(--white);
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            color: var(--sky-blue);
+        }
+        
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            transform: translateY(-50%);
+        }
+        
+        .modal-prev, .modal-next {
+            color: var(--white);
+            font-size: 2rem;
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .modal-prev:hover, .modal-next:hover {
+            background-color: var(--forest-green);
+        }
+        
+        .modal-caption {
+            text-align: center;
+            color: var(--white);
+            padding: 1rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .modal-content {
+                width: 95%;
+            }
+            
+            .modal-nav {
+                padding: 0 10px;
+            }
+            
+            .modal-prev, .modal-next {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Project Gallery</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="aboutus.html">About</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
+        <div class="container header-container">
+            <div class="logo">GreenRoots Landscaping Co.</div>
+            <button class="mobile-menu-btn" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="aboutus.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="gallery.html" class="active">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <main>
-        <section id="photo-grid">
-            <img alt="Project photo 1" />
-            <img alt="Project photo 2" />
-            <img alt="Project photo 3" />
-            <img alt="Project photo 4" />
-            <img alt="Project photo 5" />
-            <img alt="Project photo 6" />
+        <section id="page-hero">
+            <div class="container">
+                <h1>Our Project Gallery</h1>
+                <p>Browse our portfolio of sustainable landscaping projects across the Western Cape</p>
+            </div>
         </section>
+
+        <section id="gallery-content">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Featured Projects</h2>
+                    <p>Each project reflects our commitment to eco-friendly design and sustainable practices</p>
+                </div>
+                
+                <div class="gallery-filters">
+                    <button class="filter-btn active" data-filter="all">All Projects</button>
+                    <button class="filter-btn" data-filter="residential">Residential</button>
+                    <button class="filter-btn" data-filter="commercial">Commercial</button>
+                    <button class="filter-btn" data-filter="community">Community</button>
+                </div>
+                
+                <div class="gallery-grid">
+                    <div class="gallery-item" data-category="residential">
+                        <img src="https://images.unsplash.com/photo-1585060544812-6b45742d762f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Modern garden design with native plants">
+                        <div class="gallery-overlay">
+                            <div class="gallery-info">
+                                <h3>Seaside Residence</h3>
+                                <p>Water-wise garden with indigenous coastal plants</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="residential">
+                        <img src="https://images.unsplash.com/photo-1560717789-0ac7c58ac90a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Eco-friendly backyard transformation">
+                        <div class="gallery-overlay">
+                            <div class="gallery-info">
+                                <h3>Suburban Oasis</h3>
+                                <p>Complete backyard transformation with sustainable features</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="commercial">
+                        <img src="https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Office building landscaping">
+                        <div class="gallery-overlay">
+                            <div class="gallery-info">
+                                <h3>Corporate Campus</h3>
+                                <p>Low-maintenance commercial landscaping with rainwater harvesting</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="commercial">
+                        <img src="https://images.unsplash.com/photo-1570586437263-ab629fcc86cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Hotel garden design">
+                        <div class="gallery-overlay">
+                            <div class="gallery-info">
+                                <h3>Boutique Hotel</h3>
+                                <p>Eco-luxury garden design for a premium hospitality experience</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="community">
+                        <img src="https://images.unsplash.com/photo-1598940603846-a1edd0ef5274?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Community garden project">
+                        <div class="gallery-overlay">
+                            <div class="gallery-info">
+                                <h3>Neighborhood Garden</h3>
+                                <p>Community space with edible gardens and native plant areas</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="community">
+                        <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="School landscaping project">
+                        <div class="gallery-overlay">
+                            <div class="gallery-info">
+                                <h3>School Garden</h3>
+                                <p>Educational garden with indigenous species and outdoor classroom</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="residential">
+                        <img src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Rooftop garden design">
+                        <div class="gallery-overlay">
+                            <div class="gallery-info">
+                                <h3>Urban Rooftop</h3>
+                                <p>Green roof installation with drought-resistant plants</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="commercial">
+                        <img src="https://images.unsplash.com/photo-1560983078-8f6c5d647f47?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Restaurant garden design">
+                        <div class="gallery-overlay">
+                            <div class="gallery-info">
+                                <h3>Restaurant Garden</h3>
+                                <p>Farm-to-table landscape with herb gardens and outdoor dining</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Modal for image viewing -->
+        <div id="imageModal" class="modal">
+            <span class="modal-close" id="modalClose">&times;</span>
+            <div class="modal-content">
+                <img class="modal-image" id="modalImage" src="" alt="">
+                <div class="modal-caption" id="modalCaption"></div>
+            </div>
+            <div class="modal-nav">
+                <div class="modal-prev" id="modalPrev">&#10094;</div>
+                <div class="modal-next" id="modalNext">&#10095;</div>
+            </div>
+        </div>
     </main>
 
     <footer>
-        <p>Contact info and social media links</p>
+        <div class="container">
+            <div class="footer-content">
+                <p>Inspired by our work? Contact us to discuss your project</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+                <p>© 2023 GreenRoots Landscaping Co. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
+
+    <script src="js/script.js"></script>
+    <script>
+        // Gallery-specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize filter buttons
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    // Get filter value
+                    const filterValue = button.getAttribute('data-filter');
+                    
+                    // Filter gallery items
+                    galleryItems.forEach(item => {
+                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                            item.style.display = 'block';
+                            setTimeout(() => {
+                                item.style.opacity = 1;
+                                item.style.transform = 'scale(1)';
+                            }, 50);
+                        } else {
+                            item.style.opacity = 0;
+                            item.style.transform = 'scale(0.8)';
+                            setTimeout(() => {
+                                item.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+            
+            // Modal functionality
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalCaption = document.getElementById('modalCaption');
+            const modalClose = document.getElementById('modalClose');
+            const modalPrev = document.getElementById('modalPrev');
+            const modalNext = document.getElementById('modalNext');
+            
+            let currentImageIndex = 0;
+            const images = Array.from(galleryItems);
+            
+            // Function to open modal with specific image
+            function openModal(index) {
+                currentImageIndex = index;
+                const imageSrc = images[index].querySelector('img').src;
+                const imageAlt = images[index].querySelector('img').alt;
+                const imageTitle = images[index].querySelector('h3').textContent;
+                const imageDesc = images[index].querySelector('p').textContent;
+                
+                modalImage.src = imageSrc;
+                modalImage.alt = imageAlt;
+                modalCaption.innerHTML = `<h3>${imageTitle}</h3><p>${imageDesc}</p>`;
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            }
+            
+            // Add click event to gallery items
+            galleryItems.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    openModal(index);
+                });
+            });
+            
+            // Close modal
+            modalClose.addEventListener('click', () => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Enable scrolling
+            });
+            
+            // Navigate to previous image
+            modalPrev.addEventListener('click', () => {
+                currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                openModal(currentImageIndex);
+            });
+            
+            // Navigate to next image
+            modalNext.addEventListener('click', () => {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                openModal(currentImageIndex);
+            });
+            
+            // Close modal when clicking outside the image
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto'; // Enable scrolling
+                }
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (modal.style.display === 'block') {
+                    if (e.key === 'Escape') {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    } else if (e.key === 'ArrowLeft') {
+                        currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                        openModal(currentImageIndex);
+                    } else if (e.key === 'ArrowRight') {
+                        currentImageIndex = (currentImageIndex + 1) % images.length;
+                        openModal(currentImageIndex);
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
