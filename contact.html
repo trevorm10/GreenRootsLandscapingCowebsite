@@ -2,55 +2,148 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GreenRoots Landscaping Co. - Contact</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
     <header>
-        <h1>Contact Us</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="aboutus.html">About</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
+        <div class="container header-container">
+            <div class="logo">GreenRoots Landscaping Co.</div>
+            <button class="mobile-menu-btn" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="aboutus.html">About</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <main>
-        <section id="contact-info">
-            <p>Phone: +27 XXX XXX XXXX</p>
-            <p>Email: info@greenroots.co.za</p>
-            <p>Address: Cape Town, Western Cape, South Africa</p>
-            <p>Business Hours: Mon-Fri 8am - 5pm</p>
+        <section id="page-hero">
+            <div class="container">
+                <h1>Contact Us</h1>
+                <p>Get in touch to discuss your landscaping project</p>
+            </div>
         </section>
 
-        <section id="contact-form">
-            <form>
-                <label for="name">Name:</label><br />
-                <input type="text" id="name" name="name" /><br />
-
-                <label for="email">Email:</label><br />
-                <input type="email" id="email" name="email" /><br />
-
-                <label for="phone">Phone:</label><br />
-                <input type="tel" id="phone" name="phone" /><br />
-
-                <label for="message">Message:</label><br />
-                <textarea id="message" name="message"></textarea><br />
-
-                <button type="submit">Submit</button>
-            </form>
+        <section id="contact-content">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Get In Touch</h2>
+                    <p>We'd love to hear from you and discuss how we can transform your outdoor space</p>
+                </div>
+                
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h3>Contact Information</h3>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Address</h4>
+                                <p>123 Green Street, Cape Town, Western Cape, 8001</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Phone</h4>
+                                <p>+27 21 123 4567</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email</h4>
+                                <p>info@greenroots.co.za</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4>Business Hours</h4>
+                                <p>Monday-Friday: 8am-5pm<br>Saturday: 9am-1pm<br>Sunday: Closed</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form">
+                        <h3>Send us a Message</h3>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="service">Service Interested In</label>
+                                <select id="service" name="service">
+                                    <option value="">Select a service</option>
+                                    <option value="garden-design">Garden Design</option>
+                                    <option value="maintenance">Maintenance</option>
+                                    <option value="eco-solutions">Eco Solutions</option>
+                                    <option value="lawn-care">Lawn Care</option>
+                                    <option value="irrigation">Irrigation Systems</option>
+                                    <option value="seasonal">Seasonal Cleanup</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Your Message</label>
+                                <textarea id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section id="map">
-            <p>Google Map embed placeholder</p>
+        <section id="map-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Location</h2>
+                </div>
+                <div class="map-container">
+                    <!-- Simple placeholder for map - you can replace with an actual Google Maps embed -->
+                    <div class="map-placeholder">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <p>Map would be displayed here</p>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>Contact info and social media links</p>
+        <div class="container">
+            <div class="footer-content">
+                <p>Contact us today to discuss your landscaping needs</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+                <p>© 2023 GreenRoots Landscaping Co. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
