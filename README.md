@@ -16,12 +16,9 @@
 <img width="862" height="730" alt="image" src="https://github.com/user-attachments/assets/82a1cdbe-6f03-458e-be71-12d97ad28ccf" />
 <img width="861" height="725" alt="image" src="https://github.com/user-attachments/assets/0c960bd7-2d93-4743-a60c-c1a1826e45ba" />
 
-
 -Samsung S20 Ultra
 <img width="658" height="847" alt="image" src="https://github.com/user-attachments/assets/084812c2-edf0-4b3f-aefe-9c74014d01a1" />
 <img width="658" height="853" alt="image" src="https://github.com/user-attachments/assets/3f9d38a3-9295-4b18-b777-1eac45d3c3dc" />
 <img width="652" height="852" alt="image" src="https://github.com/user-attachments/assets/e9e5d6c8-e922-44f7-8809-458c2dad0079" />
 <img width="657" height="847" alt="image" src="https://github.com/user-attachments/assets/5f24990b-9b84-4436-b5dd-45b8391961ae" />
 <img width="682" height="842" alt="image" src="https://github.com/user-attachments/assets/c28c17fa-d6f8-47c2-af6f-20c5c04b5c20" />
-
-
