@@ -7,6 +7,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles/style.css">
+    <style>
+        /* Fixed hero section to use local image */
+        #page-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/misc/gallery-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 6rem 0; /* Same as About and Services pages */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -28,7 +37,8 @@
     </header>
 
     <main>
-        <section id="page-hero" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/misc/gallery-hero.jpg'); background-size: cover; background-position: center;">
+        <!-- Hero Section - Removed inline style -->
+        <section id="page-hero">
             <div class="container">
                 <h1>Our Project Gallery</h1>
                 <p>Browse our portfolio of sustainable landscaping projects across the Western Cape</p>
