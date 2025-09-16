@@ -13,7 +13,7 @@
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/misc/contact-hero.jpg');
             background-size: cover;
             background-position: center;
-            padding: 6rem 0; /* Same as other pages */
+            padding: 6rem 0; 
         }
         
         /* Regional offices styling */
@@ -34,6 +34,11 @@
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .office-card:hover {
+            transform: translateY(-5px);
         }
         
         .office-map {
@@ -43,6 +48,24 @@
             position: relative;
         }
         
+        .map-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .office-map:hover .map-overlay {
+            opacity: 1;
+        }
+        
         .office-content {
             padding: 1.5rem;
         }
@@ -50,6 +73,7 @@
         .office-content h3 {
             color: var(--forest-green);
             margin-bottom: 1rem;
+            font-size: 1.4rem;
         }
         
         .office-details {
@@ -67,6 +91,23 @@
             margin-right: 0.8rem;
             margin-top: 0.2rem;
             min-width: 16px;
+        }
+        
+        .office-detail span {
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--forest-green);
+            color: var(--forest-green);
+            padding: 8px 20px;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--forest-green);
+            color: var(--white);
         }
     </style>
 </head>
@@ -111,7 +152,7 @@
                         <div class="contact-item">
                             <i class="fas fa-map-marker-alt"></i>
                             <div>
-                                <h4>Address</h4>
+                                <h4>Head Office</h4>
                                 <p>123 Green Street, Cape Town, Western Cape, 8001</p>
                             </div>
                         </div>
@@ -188,15 +229,46 @@
             </div>
         </section>
 
-        <!-- New Regional Offices Section -->
+        <!-- Updated Regional Offices Section -->
         <section class="regional-offices">
             <div class="container">
                 <div class="section-title">
-                    <h2>Regional Offices</h2>
-                    <p>Visit our offices in KwaZulu-Natal and Gauteng provinces</p>
+                    <h2>Our Regional Offices</h2>
+                    <p>Visit our offices across South Africa</p>
                 </div>
                 
                 <div class="office-cards">
+                    <!-- Western Cape Office -->
+                    <div class="office-card">
+                        <div class="office-map" style="background-image: url('images/maps/western-cape-map.jpg');">
+                            <div class="map-overlay">
+                                <a href="https://www.sa-venues.com/maps/western-cape.php" target="_blank" class="btn">View Larger Map</a>
+                            </div>
+                        </div>
+                        <div class="office-content">
+                            <h3>Western Cape Office</h3>
+                            <div class="office-details">
+                                <div class="office-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>123 Green Street, Cape Town, Western Cape, 8001</span>
+                                </div>
+                                <div class="office-detail">
+                                    <i class="fas fa-phone"></i>
+                                    <span>+27 21 123 4567</span>
+                                </div>
+                                <div class="office-detail">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Mon-Fri: 8am-5pm, Sat: 9am-1pm</span>
+                                </div>
+                                <div class="office-detail">
+                                    <i class="fas fa-user"></i>
+                                    <span>Regional Manager: Sarah Johnson</span>
+                                </div>
+                            </div>
+                            <a href="https://goo.gl/maps/examplewesterncape" target="_blank" class="btn btn-outline">Get Directions</a>
+                        </div>
+                    </div>
+                    
                     <!-- KZN Office -->
                     <div class="office-card">
                         <div class="office-map" style="background-image: url('images/maps/kzn-map.jpg');">
@@ -262,23 +334,7 @@
             </div>
         </section>
 
-        <section id="map-section">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Our Location</h2>
-                </div>
-                <div class="map-container">
-                    <!-- You can replace this with an actual Google Maps embed -->
-                    <div class="map-placeholder" style="background-image: url('images/misc/location-map.jpg');">
-                        <div class="map-overlay">
-                            <i class="fas fa-map-marked-alt"></i>
-                            <p>123 Green Street, Cape Town</p>
-                            <a href="https://goo.gl/maps/example" target="_blank" class="btn">Open in Google Maps</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Removed the old map section since we now have office cards with maps -->
     </main>
 
     <footer>
