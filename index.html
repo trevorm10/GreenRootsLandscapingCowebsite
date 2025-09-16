@@ -20,29 +20,14 @@
         color: white;
         font-size: 3rem;
     }
+    
+    /* Fixed hero section to use local image */
+    #hero {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/hero/hero-background.jpg');
+        background-size: cover;
+        background-position: center;
+    }
 </style>
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GreenRoots Landscaping Co. - Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles/style.css">
-    <style>
-        #services-preview .service-img {
-            background-color: transparent !important;
-            background-size: cover;
-            background-position: center;
-        }
-        
-        #services-preview .service-icon {
-            position: relative;
-            z-index: 2;
-            color: white;
-            font-size: 3rem;
-        }
-    </style>
-</head>
 </head>
 <body>
     <header>
@@ -64,8 +49,8 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
-        <section id="hero" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/hero/hero-background.jpg'); background-size: cover; background-position: center;">
+        <!-- Hero Section - Removed inline style -->
+        <section id="hero">
             <div class="container">
                 <h2>Creating sustainable, beautiful outdoor spaces</h2>
                 <a href="services.html" class="btn">View Our Services</a>
