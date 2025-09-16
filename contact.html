@@ -15,6 +15,59 @@
             background-position: center;
             padding: 6rem 0; /* Same as other pages */
         }
+        
+        /* Regional offices styling */
+        .regional-offices {
+            padding: 5rem 0;
+            background-color: var(--light-gray);
+        }
+        
+        .office-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .office-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .office-map {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .office-content {
+            padding: 1.5rem;
+        }
+        
+        .office-content h3 {
+            color: var(--forest-green);
+            margin-bottom: 1rem;
+        }
+        
+        .office-details {
+            margin-bottom: 1.5rem;
+        }
+        
+        .office-detail {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+        }
+        
+        .office-detail i {
+            color: var(--forest-green);
+            margin-right: 0.8rem;
+            margin-top: 0.2rem;
+            min-width: 16px;
+        }
     </style>
 </head>
 <body>
@@ -130,6 +183,80 @@
                             </div>
                             <button type="submit" class="btn">Send Message</button>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Regional Offices Section -->
+        <section class="regional-offices">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Regional Offices</h2>
+                    <p>Visit our offices in KwaZulu-Natal and Gauteng provinces</p>
+                </div>
+                
+                <div class="office-cards">
+                    <!-- KZN Office -->
+                    <div class="office-card">
+                        <div class="office-map" style="background-image: url('images/maps/kzn-map.jpg');">
+                            <div class="map-overlay">
+                                <a href="https://www.sa-venues.com/maps/kwazulu_natal_atlas.htm" target="_blank" class="btn">View Larger Map</a>
+                            </div>
+                        </div>
+                        <div class="office-content">
+                            <h3>KwaZulu-Natal Office</h3>
+                            <div class="office-details">
+                                <div class="office-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>247 Burger Street, Pietermaritzburg, KwaZulu-Natal:cite[3]</span>
+                                </div>
+                                <div class="office-detail">
+                                    <i class="fas fa-phone"></i>
+                                    <span>033 846 5000:cite[3]</span>
+                                </div>
+                                <div class="office-detail">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Mon-Fri: 8am-4:30pm, Sat: 9am-12pm</span>
+                                </div>
+                                <div class="office-detail">
+                                    <i class="fas fa-user"></i>
+                                    <span>Regional Manager: Sipho Ndlovu</span>
+                                </div>
+                            </div>
+                            <a href="https://goo.gl/maps/examplekzn" target="_blank" class="btn btn-outline">Get Directions</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Gauteng Office -->
+                    <div class="office-card">
+                        <div class="office-map" style="background-image: url('images/maps/gauteng-map.jpg');">
+                            <div class="map-overlay">
+                                <a href="https://www.sa-venues.com/maps/gauteng_atlas.htm" target="_blank" class="btn">View Larger Map</a>
+                            </div>
+                        </div>
+                        <div class="office-content">
+                            <h3>Gauteng Office</h3>
+                            <div class="office-details">
+                                <div class="office-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>6 Hollard Building, 17 Simmonds Street, Johannesburg:cite[3]</span>
+                                </div>
+                                <div class="office-detail">
+                                    <i class="fas fa-phone"></i>
+                                    <span>011 355 0000:cite[3]</span>
+                                </div>
+                                <div class="office-detail">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Mon-Fri: 8am-5pm, Sat: 9am-1pm</span>
+                                </div>
+                                <div class="office-detail">
+                                    <i class="fas fa-user"></i>
+                                    <span>Regional Manager: Thando Mbatha</span>
+                                </div>
+                            </div>
+                            <a href="https://goo.gl/maps/examplegauteng" target="_blank" class="btn btn-outline">Get Directions</a>
+                        </div>
                     </div>
                 </div>
             </div>
