@@ -257,3 +257,59 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', animateOnScroll);
     animateOnScroll(); // Initial check
 });
+// ===== PART 3 ADDITIONS - INTERACTIVE FEATURES =====
+(function() {
+    'use strict';
+
+    // Mobile Menu Toggle
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add mobile menu button if it doesn't exist
+        if (!document.querySelector('.mobile-menu-btn')) {
+            const nav = document.querySelector('nav');
+            const mobileBtn = document.createElement('button');
+            mobileBtn.className = 'mobile-menu-btn';
+            mobileBtn.innerHTML = '☰';
+            nav.appendChild(mobileBtn);
+            
+            mobileBtn.addEventListener('click', function() {
+                const navLinks = document.querySelector('.nav-links');
+                navLinks.classList.toggle('active');
+                this.innerHTML = navLinks.classList.contains('active') ? '✕' : '☰';
+            });
+        }
+
+        // Initialize Part 3 features
+        initAccordions();
+        initModals();
+        initLightbox();
+        initFormValidation();
+        initSearch();
+        initMap();
+        initAnimations();
+    });
+
+    // Accordion Functionality
+    function initAccordions() {
+        const accordionHeaders = document.querySelectorAll('.accordion-header');
+        
+        accordionHeaders.forEach(header => {
+            header.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const isActive = content.classList.contains('active');
+                
+                // Close all accordions
+                document.querySelectorAll('.accordion-content').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Open current one if it wasn't active
+                if (!isActive) {
+                    content.classList.add('active');
+                }
+            });
+        });
+    }
+
+    // ... rest of the functions (initModals, initLightbox, etc.) ...
+
+})();
