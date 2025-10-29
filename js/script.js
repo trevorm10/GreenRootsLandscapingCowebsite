@@ -521,22 +521,45 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Map Functionality (Leaflet.js)
-    function initMap() {
-        const mapContainer = document.getElementById('map');
-        if (!mapContainer) return;
-        
-        // Simple map implementation - you can customize coordinates
-        const map = L.map('map').setView([51.505, -0.09], 13);
-        
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
-        
-        L.marker([51.505, -0.09])
-            .addTo(map)
-            .bindPopup('Greenroots Landscaping<br>Your trusted landscaping partner.')
-            .openPopup();
-    }
+   function initMap() {
+    const mapContainer = document.getElementById('map');
+    if (!mapContainer) return;
+    
+    // Cape Town coordinates - Green Street, Gardens
+    const capeTownCoords = [-33.9280, 18.4125];
+    const map = L.map('map').setView(capeTownCoords, 15);
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    
+    // Add custom icon
+    const greenIcon = L.divIcon({
+        html: '<i class="fas fa-map-marker-alt" style="color: #2e8b57; font-size: 30px;"></i>',
+        iconSize: [30, 30],
+        className: 'green-marker'
+    });
+    
+    // Add marker with popup and directions link
+    const marker = L.marker(capeTownCoords, {icon: greenIcon}).addTo(map);
+    marker.bindPopup(`
+        <div style="text-align: center;">
+            <h4>GreenRoots Landscaping</h4>
+            <p>123 Green Street, Gardens<br>Cape Town, 8001</p>
+            <a href="https://www.google.com/maps/dir//123+Green+Street+Gardens+Cape+Town+8001" 
+               target="_blank" 
+               style="background: #2e8b57; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 10px;">
+               Get Directions
+            </a>
+        </div>
+    `).openPopup();
+    
+    // Add click event to marker
+    marker.on('click', function() {
+        window.open('https://www.google.com/maps/dir//123+Green+Street+Gardens+Cape+Town+8001', '_blank');
+    });
+}
+
 
     // Scroll Animations
     function initAnimations() {
