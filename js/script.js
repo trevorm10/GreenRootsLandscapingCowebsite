@@ -261,7 +261,6 @@ document.addEventListener('DOMContentLoaded', function() {
 (function() {
     'use strict';
 
-    // Mobile Menu Toggle
     document.addEventListener('DOMContentLoaded', function() {
         // Add mobile menu button if it doesn't exist
         if (!document.querySelector('.mobile-menu-btn')) {
@@ -310,6 +309,255 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ... rest of the functions (initModals, initLightbox, etc.) ...
+    // Modal Functionality
+    function initModals() {
+        const modalTriggers = document.querySelectorAll('[data-modal]');
+        const closeButtons = document.querySelectorAll('.close-modal');
+        
+        // Open modal
+        modalTriggers.forEach(trigger => {
+            trigger.addEventListener('click', function() {
+                const modalId = this.getAttribute('data-modal');
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+        
+        // Close modal
+        closeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                if (modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+        
+        // Close modal when clicking outside
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+    }
+
+    // Lightbox Gallery
+    function initLightbox() {
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const lightbox = document.querySelector('.lightbox');
+        
+        if (!lightbox) return;
+        
+        galleryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const imgSrc = this.querySelector('img').getAttribute('src');
+                const lightboxImg = lightbox.querySelector('img');
+                lightboxImg.setAttribute('src', imgSrc);
+                lightbox.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        // Close lightbox
+        lightbox.querySelector('.close-lightbox').addEventListener('click', function() {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+        
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    }
+
+    // Form Validation
+    function initFormValidation() {
+        const forms = document.querySelectorAll('form[data-form]');
+        
+        forms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (validateForm(this)) {
+                    submitForm(this);
+                }
+            });
+            
+            // Real-time validation
+            const inputs = form.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    validateField(this);
+                });
+            });
+        });
+    }
+
+    function validateForm(form) {
+        let isValid = true;
+        const requiredFields = form.querySelectorAll('[required]');
+        
+        requiredFields.forEach(field => {
+            if (!validateField(field)) {
+                isValid = false;
+            }
+        });
+        
+        return isValid;
+    }
+
+    function validateField(field) {
+        const value = field.value.trim();
+        
+        if (field.hasAttribute('required') && !value) {
+            showError(field, 'This field is required');
+            return false;
+        }
+        
+        if (field.type === 'email' && value && !isValidEmail(value)) {
+            showError(field, 'Please enter a valid email address');
+            return false;
+        }
+        
+        clearError(field);
+        return true;
+    }
+
+    function showError(field, message) {
+        clearError(field);
+        field.style.borderColor = '#ff4444';
+        
+        let errorElement = field.parentNode.querySelector('.error-message');
+        if (!errorElement) {
+            errorElement = document.createElement('div');
+            errorElement.className = 'error-message';
+            field.parentNode.appendChild(errorElement);
+        }
+        
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+    }
+
+    function clearError(field) {
+        field.style.borderColor = '';
+        const errorElement = field.parentNode.querySelector('.error-message');
+        if (errorElement) {
+            errorElement.style.display = 'none';
+        }
+    }
+
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    function submitForm(form) {
+        const submitBtn = form.querySelector('.submit-btn');
+        const originalText = submitBtn.textContent;
+        const formType = form.getAttribute('data-form');
+        
+        // Show loading state
+        submitBtn.innerHTML = '<div class="loading"></div> Submitting...';
+        submitBtn.disabled = true;
+        
+        // Simulate form submission
+        setTimeout(() => {
+            showSuccessMessage(form, formType);
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+            form.reset();
+        }, 2000);
+    }
+
+    function showSuccessMessage(form, formType) {
+        let message = 'Thank you for your message! We will get back to you soon.';
+        
+        if (formType === 'enquiry') {
+            message = 'Thank you for your enquiry! We will provide you with cost details and availability within 24 hours.';
+        }
+        
+        let successElement = form.querySelector('.success-message');
+        if (!successElement) {
+            successElement = document.createElement('div');
+            successElement.className = 'success-message';
+            form.insertBefore(successElement, form.firstChild);
+        }
+        
+        successElement.textContent = message;
+        successElement.style.display = 'block';
+        
+        setTimeout(() => {
+            successElement.style.display = 'none';
+        }, 5000);
+    }
+
+    // Search Functionality
+    function initSearch() {
+        const searchBox = document.querySelector('.search-box');
+        if (!searchBox) return;
+        
+        searchBox.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const searchableItems = document.querySelectorAll('.service-card, .project-item');
+            
+            searchableItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    }
+
+    // Map Functionality (Leaflet.js)
+    function initMap() {
+        const mapContainer = document.getElementById('map');
+        if (!mapContainer) return;
+        
+        // Simple map implementation - you can customize coordinates
+        const map = L.map('map').setView([51.505, -0.09], 13);
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+        
+        L.marker([51.505, -0.09])
+            .addTo(map)
+            .bindPopup('Greenroots Landscaping<br>Your trusted landscaping partner.')
+            .openPopup();
+    }
+
+    // Scroll Animations
+    function initAnimations() {
+        const animatedElements = document.querySelectorAll('.service-card, .gallery-item');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+        
+        animatedElements.forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(element);
+        });
+    }
 
 })();
