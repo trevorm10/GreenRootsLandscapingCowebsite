@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles/style.css">
-     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <style>
         /* Fixed hero section to use local image */
         #page-hero {
@@ -231,13 +231,52 @@
                 </div>
             </div>
         </section>
-         <section class="section">
+                 </section>
+
+        <!-- === PART 3 ADDITION - INTERACTIVE MAP === -->
+        <section class="section">
             <div class="container">
                 <div class="section-title">
                     <h2>Find Our Main Office</h2>
                     <p>Visit us at our Cape Town headquarters</p>
                 </div>
+                
+                <!-- Cape Town Office Details -->
+                <div class="office-card" style="max-width: 800px; margin: 0 auto 2rem;">
+                    <div class="office-content">
+                        <h3>Cape Town Head Office</h3>
+                        <div class="office-details">
+                            <div class="office-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>123 Green Street, Gardens, Cape Town, 8001</span>
+                            </div>
+                            <div class="office-detail">
+                                <i class="fas fa-phone"></i>
+                                <span>+27 21 123 4567</span>
+                            </div>
+                            <div class="office-detail">
+                                <i class="fas fa-envelope"></i>
+                                <span>info@greenroots.co.za</span>
+                            </div>
+                            <div class="office-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>Monday-Friday: 8am-5pm | Saturday: 9am-1pm</span>
+                            </div>
+                            <div class="office-detail">
+                                <i class="fas fa-user"></i>
+                                <span>General Manager: Michael van der Merwe</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Interactive Map -->
                 <div id="map" class="map-container"></div>
+                
+                <!-- Map Instructions -->
+                <div style="text-align: center; margin-top: 1rem;">
+                    <p><small>Click on the map marker for directions to our Cape Town office</small></p>
+                </div>
             </div>
         </section>
 
