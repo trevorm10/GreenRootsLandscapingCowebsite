@@ -87,119 +87,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Gallery filter functionality
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    
-    if (filterButtons.length > 0 && galleryItems.length > 0) {
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                
-                // Add active class to clicked button
-                button.classList.add('active');
-                
-                // Get filter value
-                const filterValue = button.getAttribute('data-filter');
-                
-                // Filter gallery items
-                galleryItems.forEach(item => {
-                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                        item.style.display = 'block';
-                        setTimeout(() => {
-                            item.style.opacity = 1;
-                            item.style.transform = 'scale(1)';
-                        }, 50);
-                    } else {
-                        item.style.opacity = 0;
-                        item.style.transform = 'scale(0.8)';
-                        setTimeout(() => {
-                            item.style.display = 'none';
-                        }, 300);
-                    }
-                });
-            });
-        });
-    }
-    
-    // Modal functionality for gallery
-    const modal = document.getElementById('imageModal');
-    if (modal) {
-        const modalImage = document.getElementById('modalImage');
-        const modalCaption = document.getElementById('modalCaption');
-        const modalClose = document.getElementById('modalClose');
-        const modalPrev = document.getElementById('modalPrev');
-        const modalNext = document.getElementById('modalNext');
-        
-        let currentImageIndex = 0;
-        const images = Array.from(galleryItems);
-        
-        // Function to open modal with specific image
-        function openModal(index) {
-            currentImageIndex = index;
-            const imageSrc = images[index].querySelector('img').src;
-            const imageAlt = images[index].querySelector('img').alt;
-            const imageTitle = images[index].querySelector('h3').textContent;
-            const imageDesc = images[index].querySelector('p').textContent;
-            
-            modalImage.src = imageSrc;
-            modalImage.alt = imageAlt;
-            modalCaption.innerHTML = `<h3>${imageTitle}</h3><p>${imageDesc}</p>`;
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
-        }
-        
-        // Add click event to gallery items
-        galleryItems.forEach((item, index) => {
-            item.addEventListener('click', () => {
-                openModal(index);
-            });
-        });
-        
-        // Close modal
-        modalClose.addEventListener('click', () => {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto'; // Enable scrolling
-        });
-        
-        // Navigate to previous image
-        modalPrev.addEventListener('click', () => {
-            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-            openModal(currentImageIndex);
-        });
-        
-        // Navigate to next image
-        modalNext.addEventListener('click', () => {
-            currentImageIndex = (currentImageIndex + 1) % images.length;
-            openModal(currentImageIndex);
-        });
-        
-        // Close modal when clicking outside the image
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto'; // Enable scrolling
-            }
-        });
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (modal.style.display === 'block') {
-                if (e.key === 'Escape') {
-                    modal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                } else if (e.key === 'ArrowLeft') {
-                    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-                    openModal(currentImageIndex);
-                } else if (e.key === 'ArrowRight') {
-                    currentImageIndex = (currentImageIndex + 1) % images.length;
-                    openModal(currentImageIndex);
-                }
-            }
-        });
-    }
-    
     // Contact form validation
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
@@ -257,6 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', animateOnScroll);
     animateOnScroll(); // Initial check
 });
+
 // ===== PART 3 ADDITIONS - INTERACTIVE FEATURES =====
 (function() {
     'use strict';
@@ -285,6 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
         initSearch();
         initMap();
         initAnimations();
+        initGalleryFilter(); // ADDED - Gallery filter functionality
     });
 
     // Accordion Functionality
@@ -348,33 +237,100 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Lightbox Gallery
+    // Lightbox Gallery Functionality
     function initLightbox() {
         const galleryItems = document.querySelectorAll('.gallery-item');
-        const lightbox = document.querySelector('.lightbox');
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
+        const modalClose = document.getElementById('modalClose');
+        const modalPrev = document.getElementById('modalPrev');
+        const modalNext = document.getElementById('modalNext');
         
-        if (!lightbox) return;
+        if (!modal) return;
         
-        galleryItems.forEach(item => {
+        let currentIndex = 0;
+        let currentItems = [];
+        
+        // Function to open modal with specific image
+        function openModal(index) {
+            currentIndex = index;
+            const item = currentItems[currentIndex];
+            
+            // Get image URL from background image style
+            const bgImage = item.style.backgroundImage;
+            const imageUrl = bgImage.replace('url("', '').replace('")', '');
+            
+            // Set modal image and caption
+            modalImage.src = imageUrl;
+            
+            const title = item.querySelector('h3').textContent;
+            const description = item.querySelector('p').textContent;
+            modalCaption.innerHTML = `<h3>${title}</h3><p>${description}</p>`;
+            
+            // Show modal
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            // Update navigation buttons
+            updateNavigation();
+        }
+        
+        // Function to update navigation buttons state
+        function updateNavigation() {
+            modalPrev.style.display = currentIndex > 0 ? 'block' : 'none';
+            modalNext.style.display = currentIndex < currentItems.length - 1 ? 'block' : 'none';
+        }
+        
+        // Function to close modal
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Function to navigate to next image
+        function nextImage() {
+            if (currentIndex < currentItems.length - 1) {
+                openModal(currentIndex + 1);
+            }
+        }
+        
+        // Function to navigate to previous image
+        function prevImage() {
+            if (currentIndex > 0) {
+                openModal(currentIndex - 1);
+            }
+        }
+        
+        // Add click event to all gallery items
+        galleryItems.forEach((item, index) => {
             item.addEventListener('click', function() {
-                const imgSrc = this.querySelector('img').getAttribute('src');
-                const lightboxImg = lightbox.querySelector('img');
-                lightboxImg.setAttribute('src', imgSrc);
-                lightbox.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
+                // Get all currently visible items (after filtering)
+                currentItems = Array.from(document.querySelectorAll('.gallery-item:not(.hidden)'));
+                const currentItemIndex = currentItems.indexOf(item);
+                openModal(currentItemIndex);
             });
         });
         
-        // Close lightbox
-        lightbox.querySelector('.close-lightbox').addEventListener('click', function() {
-            lightbox.style.display = 'none';
-            document.body.style.overflow = 'auto';
+        // Close modal events
+        modalClose.addEventListener('click', closeModal);
+        
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
         });
         
-        lightbox.addEventListener('click', function(e) {
-            if (e.target === this) {
-                this.style.display = 'none';
-                document.body.style.overflow = 'auto';
+        // Navigation events
+        modalNext.addEventListener('click', nextImage);
+        modalPrev.addEventListener('click', prevImage);
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (modal.style.display === 'block') {
+                if (e.key === 'Escape') closeModal();
+                if (e.key === 'ArrowRight') nextImage();
+                if (e.key === 'ArrowLeft') prevImage();
             }
         });
     }
@@ -521,45 +477,44 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Map Functionality (Leaflet.js)
-   function initMap() {
-    const mapContainer = document.getElementById('map');
-    if (!mapContainer) return;
-    
-    // Cape Town coordinates - Green Street, Gardens
-    const capeTownCoords = [-33.9280, 18.4125];
-    const map = L.map('map').setView(capeTownCoords, 15);
-    
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-    
-    // Add custom icon
-    const greenIcon = L.divIcon({
-        html: '<i class="fas fa-map-marker-alt" style="color: #2e8b57; font-size: 30px;"></i>',
-        iconSize: [30, 30],
-        className: 'green-marker'
-    });
-    
-    // Add marker with popup and directions link
-    const marker = L.marker(capeTownCoords, {icon: greenIcon}).addTo(map);
-    marker.bindPopup(`
-        <div style="text-align: center;">
-            <h4>GreenRoots Landscaping</h4>
-            <p>123 Green Street, Gardens<br>Cape Town, 8001</p>
-            <a href="https://www.google.com/maps/dir//123+Green+Street+Gardens+Cape+Town+8001" 
-               target="_blank" 
-               style="background: #2e8b57; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 10px;">
-               Get Directions
-            </a>
-        </div>
-    `).openPopup();
-    
-    // Add click event to marker
-    marker.on('click', function() {
-        window.open('https://www.google.com/maps/dir//123+Green+Street+Gardens+Cape+Town+8001', '_blank');
-    });
-}
-
+    function initMap() {
+        const mapContainer = document.getElementById('map');
+        if (!mapContainer) return;
+        
+        // Cape Town coordinates - Green Street, Gardens
+        const capeTownCoords = [-33.9280, 18.4125];
+        const map = L.map('map').setView(capeTownCoords, 15);
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+        
+        // Add custom icon
+        const greenIcon = L.divIcon({
+            html: '<i class="fas fa-map-marker-alt" style="color: #2e8b57; font-size: 30px;"></i>',
+            iconSize: [30, 30],
+            className: 'green-marker'
+        });
+        
+        // Add marker with popup and directions link
+        const marker = L.marker(capeTownCoords, {icon: greenIcon}).addTo(map);
+        marker.bindPopup(`
+            <div style="text-align: center;">
+                <h4>GreenRoots Landscaping</h4>
+                <p>123 Green Street, Gardens<br>Cape Town, 8001</p>
+                <a href="https://www.google.com/maps/dir//123+Green+Street+Gardens+Cape+Town+8001" 
+                   target="_blank" 
+                   style="background: #2e8b57; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 10px;">
+                   Get Directions
+                </a>
+            </div>
+        `).openPopup();
+        
+        // Add click event to marker
+        marker.on('click', function() {
+            window.open('https://www.google.com/maps/dir//123+Green+Street+Gardens+Cape+Town+8001', '_blank');
+        });
+    }
 
     // Scroll Animations
     function initAnimations() {
@@ -580,6 +535,42 @@ document.addEventListener('DOMContentLoaded', function() {
             element.style.transform = 'translateY(30px)';
             element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(element);
+        });
+    }
+
+    // Gallery Filter Functionality
+    function initGalleryFilter() {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        // Add hidden class CSS if not exists
+        if (!document.querySelector('#hidden-style')) {
+            const style = document.createElement('style');
+            style.id = 'hidden-style';
+            style.textContent = '.hidden { display: none !important; }';
+            document.head.appendChild(style);
+        }
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+                
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Filter gallery items
+                galleryItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                        item.classList.remove('hidden');
+                    } else {
+                        item.style.display = 'none';
+                        item.classList.add('hidden');
+                    }
+                });
+            });
         });
     }
 
