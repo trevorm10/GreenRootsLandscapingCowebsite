@@ -242,7 +242,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const galleryItems = document.querySelectorAll('.gallery-item');
         const modal = document.getElementById('imageModal');
         const modalImage = document.getElementById('modalImage');
-        const modalCaption = document.getElementById('modalCaption');
         const modalClose = document.getElementById('modalClose');
         const modalPrev = document.getElementById('modalPrev');
         const modalNext = document.getElementById('modalNext');
@@ -261,12 +260,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const bgImage = item.style.backgroundImage;
             const imageUrl = bgImage.replace('url("', '').replace('")', '');
             
-            // Set modal image and caption
+            // Set modal image - ONLY THE IMAGE, NO CAPTION
             modalImage.src = imageUrl;
-            
-            const title = item.querySelector('h3').textContent;
-            const description = item.querySelector('p').textContent;
-            modalCaption.innerHTML = `<h3>${title}</h3><p>${description}</p>`;
+            modalImage.alt = "Enlarged project view";
             
             // Show modal
             modal.style.display = 'block';
