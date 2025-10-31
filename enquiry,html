@@ -85,7 +85,7 @@
                         </ul>
                     </div>
                     
-                    <form id="enquiryForm" data-form="enquiry">
+                    <form id="enquiryForm"action="process-enquiry.php" method="POST" data-form="enquiry">
                         <!-- === PART 3 ADDITION - SUCCESS MESSAGE === -->
                         <div class="success-message" style="display: none;"></div>
                         <!-- === END PART 3 ADDITION === -->
