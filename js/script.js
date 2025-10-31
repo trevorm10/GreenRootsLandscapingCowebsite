@@ -379,7 +379,10 @@ document.addEventListener('DOMContentLoaded', function() {
             showError(field, 'Please enter a valid email address');
             return false;
         }
-        
+        if (field.type === 'tel' && value && !isValidPhone(value)) {
+        showError(field, 'Please enter a valid South African phone number (e.g., 0712345678 or +27712345678)');
+        return false;
+    }
         clearError(field);
         return true;
     }
@@ -411,6 +414,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     }
+    function isValidPhone(phone) {
+    // South African phone number validation
+    const phoneRegex = /^(\+27|0)[6-8][0-9]{8}$/;
+    return phoneRegex.test(phone.replace(/\s/g, ''));
+}
 
     function submitForm(form) {
         const submitBtn = form.querySelector('.submit-btn');
