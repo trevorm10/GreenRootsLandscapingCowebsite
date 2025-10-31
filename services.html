@@ -6,7 +6,7 @@
     <title>GreenRoots Landscaping Co. - Services</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/style.css">
     <style>
         /* CSS to ensure service icons are removed but background images remain */
         .service-icon {
@@ -42,6 +42,8 @@
         }
     </style>
 </head>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
 <body>
     <header>
         <div class="container header-container">
@@ -82,8 +84,6 @@
                 <div class="search-container">
                     <input type="text" class="search-box" placeholder="Search services... (e.g., lawn, garden, eco-friendly)">
                 </div>
-                <!-- === END PART 3 ADDITION === -->
-                
                 <div class="services-container">
                     <article class="service-card">
                         <div class="service-icon" style="background-image: url('images/services/garden-design.jpg');">
@@ -187,11 +187,7 @@
                         </div>
                     </article>
                 </div>
-            </div>
-        </section>
-
-        <!-- === PART 3 ADDITION - SERVICES ACCORDION === -->
-        <section class="section">
+            </div><section class="section">
             <div class="container">
                 <div class="section-title">
                     <h2>Service Details</h2>
@@ -249,7 +245,7 @@
                 </div>
             </div>
         </section>
-        <!-- === END PART 3 ADDITION === -->
+        </section>
 
         <section class="process-section">
             <div class="container">
@@ -367,6 +363,6 @@
         </div>
     </footer>
 
-    <script src="j.s/script.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
