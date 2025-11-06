@@ -421,44 +421,62 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
     function submitForm(form) {
-        const submitBtn = form.querySelector('.submit-btn');
-        const originalText = submitBtn.textContent;
-        const formType = form.getAttribute('data-form');
-        
-        // Show loading state
-        submitBtn.innerHTML = '<div class="loading"></div> Submitting...';
-        submitBtn.disabled = true;
-        
-        // Simulate form submission
-        setTimeout(() => {
+    const submitBtn = form.querySelector('.submit-btn');
+    const originalText = submitBtn.textContent;
+    const formType = form.getAttribute('data-form');
+    
+    // Show loading state
+    submitBtn.innerHTML = '<div class="loading"></div> Submitting...';
+    submitBtn.disabled = true;
+    
+    // Simulate form submission
+    setTimeout(() => {
+        if (formType === 'contact') {
+            // For contact form, compile email and open email client
+            compileAndSendEmail(form);
+        } else {
+            // For other forms, show success message
             showSuccessMessage(form, formType);
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-            form.reset();
-        }, 2000);
-    }
+        }
+        
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        form.reset();
+    }, 2000);
+}
 
-    function showSuccessMessage(form, formType) {
-        let message = 'Thank you for your message! We will get back to you soon.';
-        
-        if (formType === 'enquiry') {
-            message = 'Thank you for your enquiry! We will provide you with cost details and availability within 24 hours.';
-        }
-        
-        let successElement = form.querySelector('.success-message');
-        if (!successElement) {
-            successElement = document.createElement('div');
-            successElement.className = 'success-message';
-            form.insertBefore(successElement, form.firstChild);
-        }
-        
-        successElement.textContent = message;
-        successElement.style.display = 'block';
-        
-        setTimeout(() => {
-            successElement.style.display = 'none';
-        }, 5000);
-    }
+function compileAndSendEmail(form) {
+    const name = form.querySelector('#name').value;
+    const email = form.querySelector('#email').value;
+    const phone = form.querySelector('#phone').value;
+    const service = form.querySelector('#service').value;
+    const message = form.querySelector('#message').value;
+    
+    // Compile email content
+    const subject = `General Message - ${service}`;
+    const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}%0D%0AService Interested In: ${service}%0D%0A%0D%0AMessage:%0D%0A${message}%0D%0A%0D%0A---%0D%0ASent via GreenRoots Landscaping Contact Form`;
+    
+    // Open email client
+    window.location.href = `mailto:info@greenroots.co.za?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    // Show success message
+    showSuccessMessage(form, 'contact');
+}
+
+function generateEnquiryResponse(service, budget) {
+    const responses = {
+        'garden-design': 'Thank you for your garden design enquiry! Our design services start from R3,500. Next available consultation slot: 1 week. We\'ll contact you within 24 hours with detailed pricing.',
+        'maintenance': 'Thank you for your maintenance enquiry! Regular maintenance starts from R800/month. We have availability next week. We\'ll send you a customized quote within 24 hours.',
+        'eco-solutions': 'Great choice! Our eco-friendly solutions include rainwater harvesting and native planting. Starting from R2,500. Available in 2 weeks. We\'ll contact you with sustainable options.',
+        'lawn-care': 'Lawn care services available starting from R600 per treatment. Next available slot: 3 days. We\'ll provide seasonal care recommendations.',
+        'irrigation': 'Irrigation system installation starts from R4,000. Available in 2-3 weeks. We\'ll schedule a site assessment.',
+        'seasonal': 'Seasonal cleanup services starting from R1,200. Next available slot: 5 days. Perfect timing for seasonal preparation!',
+        'multiple': 'Thank you for your multiple service enquiry! We offer package discounts. Available within 2 weeks. We\'ll create a comprehensive project plan.',
+        'not-sure': 'No problem! Our consultation service (R500) helps determine the best approach. Available next week. We\'ll contact you to schedule.'
+    };
+    
+    return responses[service] || 'Thank you for your enquiry! Our team will review your requirements and provide cost details and availability within 24 hours.';
+}
 
     // Search Functionality
     function initSearch() {
